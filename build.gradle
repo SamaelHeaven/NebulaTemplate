@@ -1,15 +1,15 @@
 plugins {
-    id 'java'
+    id "java"
 }
 
-group = 'org.example'
-version = '1.0-SNAPSHOT'
+group = "org.example"
+version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
-    maven { url 'https://jitpack.io' }
+    maven { url "https://jitpack.io" }
 }
 
 dependencies {
-    implementation 'com.github.SamaelHeaven:Nebula:dev'
+    implementation "com.github.SamaelHeaven:Nebula:master-SNAPSHOT"
 }
