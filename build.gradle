@@ -13,7 +13,6 @@ compileJava {
     targetCompatibility = "21"
 }
 
-
 repositories {
     mavenCentral()
     maven { url "https://jitpack.io" }
