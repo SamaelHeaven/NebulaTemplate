@@ -11,5 +11,5 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.github.SamaelHeaven:Nebula:0.0.1'
+    implementation 'com.github.SamaelHeaven:Nebula:dev'
 }
