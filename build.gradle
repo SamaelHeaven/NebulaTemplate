@@ -1,9 +1,18 @@
 plugins {
     id "java"
+    id "application"
 }
 
 group = "org.example"
 version = "1.0-SNAPSHOT"
+
+application.getMainClass().set("${group}.Launcher")
+
+compileJava {
+    sourceCompatibility = "21"
+    targetCompatibility = "21"
+}
+
 
 repositories {
     mavenCentral()
@@ -12,4 +21,16 @@ repositories {
 
 dependencies {
     implementation "com.github.SamaelHeaven:Nebula:master-SNAPSHOT"
+    implementation "org.jetbrains:annotations:24.0.0"
+    implementation "org.postgresql:postgresql:42.7.3"
+}
+
+jar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    manifest {
+        attributes "Main-Class": application.getMainClass()
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
 }
