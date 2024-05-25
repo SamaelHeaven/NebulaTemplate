@@ -1,3 +1,5 @@
+import java.nio.file.*
+
 plugins {
     id "java"
     id "application"
@@ -33,3 +35,19 @@ jar {
         configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     }
 }
+
+tasks.register("generateCertificate") {
+    doLast {
+        if (!file("src/main/resources/environment/keystore.jks").exists()) {
+            String password = "keystore_password"
+            exec {
+                commandLine "keytool", "-genkeypair", "-alias", "certificate", "-keyalg", "RSA", "-keysize", "2048", "-validity", "999999", "-keystore", "keystore.jks", "-storepass", password, "-keypass", password, "-dname", "CN=SelfSignedCertificate"
+            }
+            File sourceFile = file("keystore.jks")
+            File destinationDir = file("src/main/resources/environment")
+            Files.move(sourceFile.toPath(), destinationDir.toPath().resolve(sourceFile.name))
+        }
+    }
+}
+
+tasks.build.dependsOn(generateCertificate)
